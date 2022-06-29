@@ -1,0 +1,29 @@
+{
+    "name": "aqjw/has-one-inject-field",
+    "description": "This package inherits the main features of HasOne field and allows it to be injected in the form between other fields.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aqjw\\HasOneInjectField\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aqjw\\HasOneInjectField\\FieldServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
