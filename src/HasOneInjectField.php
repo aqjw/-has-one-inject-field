@@ -135,11 +135,9 @@ class HasOneInjectField extends Field implements RelatableField
         }
 
         // populate values into fields
-        $fields->each(function ($field) use ($values, $relation) {
-            if (isset($values[$field->attribute])) {
-                $value = $values[$field->attribute];
-                $relation->{$field->attribute} = $this->isNullValue($value) ? null : $value;
-            }
+        $valueRequest = new NovaRequest($values->all());
+        $fields->map(function ($field) use ($valueRequest, $relation, $attribute) {
+            return $field->fillInto($valueRequest, $relation, $field->attribute, $field->attribute);
         });
 
         if ($editMode === 'create') {
