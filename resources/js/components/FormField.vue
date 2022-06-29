@@ -86,7 +86,7 @@
             data[key] = value
           });
 
-          formData.append(this.field.attribute_key, JSON.stringify(data))
+          formData.append(`__hoif_${this.field.attribute}`, JSON.stringify(data))
         })
       },
     }

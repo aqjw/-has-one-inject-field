@@ -36,11 +36,6 @@ class HasOneInjectField extends Field implements RelatableField
     public $compatibleWithBelongsTo = false;
 
     /**
-     * @var string
-     */
-    public $attributeKey;
-
-    /**
      * Create a new panel instance.
      *
      * @param  string  $name
@@ -57,8 +52,6 @@ class HasOneInjectField extends Field implements RelatableField
         $this->resourceClass = $resource;
         $this->resourceName = $resource::uriKey();
         $this->hasOneRelationship = $this->attribute = $attribute ?? ResourceRelationshipGuesser::guessRelation($name);
-        
-        $this->attributeKey = '__hoif' . $this->attribute;
     }
 
     /**
@@ -105,7 +98,7 @@ class HasOneInjectField extends Field implements RelatableField
         $editMode = $relation->exists === false ? 'create' : 'update';
 
         // get values
-        $raw_values = json_decode($request->input($this->attributeKey), true);
+        $raw_values = json_decode($request->input('__hoif_'.$this->attribute), true);
         $values = collect($raw_values)->filter();
 
         // do nothing for create mode if the target is nullable and values empty
@@ -180,7 +173,6 @@ class HasOneInjectField extends Field implements RelatableField
 
         return array_merge(parent::jsonSerialize(), [
             'data' => $this->data,
-            'attribute_key' => $this->attributeKey,
         ]);
     }
 
