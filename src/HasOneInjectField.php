@@ -81,6 +81,11 @@ class HasOneInjectField extends Field implements RelatableField
         return $this;
     }
 
+    private function getAttributeKey($requestAttribute, $attribute)
+    {
+        return str_replace($attribute, '__hoif_'.$attribute, $requestAttribute);
+    }
+
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
@@ -98,7 +103,7 @@ class HasOneInjectField extends Field implements RelatableField
         $editMode = $relation->exists === false ? 'create' : 'update';
 
         // get values
-        $raw_values = json_decode($request->input('__hoif_'.$this->attribute), true);
+        $raw_values = json_decode($request->input($this->getAttributeKey($requestAttribute, $attribute)), true);
         $values = collect($raw_values)->filter();
 
         // do nothing for create mode if the target is nullable and values empty
