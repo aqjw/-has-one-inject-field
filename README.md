@@ -1,4 +1,4 @@
-# HasOne Inject for Nova
+# Nova HasOne Inject
 
 This package inherits the main features of HasOne field and allows it to be injected in the form between other fields.
 
@@ -18,7 +18,7 @@ This package inherits the main features of HasOne field and allows it to be inje
 This package can be installed via command:
 
 ```bash
-composer require aqjw/has-one-inject-field
+composer require aqjw/nova-has-one-inject-field
 ```
 
 ### Usage

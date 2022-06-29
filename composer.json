@@ -1,5 +1,5 @@
 {
-    "name": "aqjw/has-one-inject-field",
+    "name": "aqjw/nova-has-one-inject-field",
     "description": "Inject HasOne field in the form between other fields.",
     "keywords": [
         "laravel",
