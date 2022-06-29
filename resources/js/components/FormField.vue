@@ -86,7 +86,7 @@
             data[key] = value
           });
 
-          formData.append(this.field.attribute, JSON.stringify(data))
+          formData.append(this.field.attribute_key, JSON.stringify(data))
         })
       },
     }

@@ -24,16 +24,21 @@ class HasOneInjectField extends Field implements RelatableField
     /**
      * The field data
      *
-     * @var array
+     * @var \Laravel\Nova\Fields\HasOne
      */
-    public $data = null;
+    public $data;
 
     /**
      * The displayable singular label of the relation.
      *
-     * @var string
+     * @var bool
      */
     public $compatibleWithBelongsTo = false;
+
+    /**
+     * @var string
+     */
+    public $attributeKey;
 
     /**
      * Create a new panel instance.
@@ -52,6 +57,8 @@ class HasOneInjectField extends Field implements RelatableField
         $this->resourceClass = $resource;
         $this->resourceName = $resource::uriKey();
         $this->hasOneRelationship = $this->attribute = $attribute ?? ResourceRelationshipGuesser::guessRelation($name);
+        
+        $this->attributeKey = '__hoif' . $this->attribute;
     }
 
     /**
@@ -98,7 +105,7 @@ class HasOneInjectField extends Field implements RelatableField
         $editMode = $relation->exists === false ? 'create' : 'update';
 
         // get values
-        $raw_values = json_decode($request->input($requestAttribute), true);
+        $raw_values = json_decode($request->input($this->attributeKey), true);
         $values = collect($raw_values)->filter();
 
         // do nothing for create mode if the target is nullable and values empty
@@ -111,16 +118,9 @@ class HasOneInjectField extends Field implements RelatableField
 
         // get rules
         $rules = $fields->mapWithKeys(function ($field) use ($request, $editMode) {
-            $rules = $editMode === 'create'
+            return $editMode === 'create'
                     ? $field->getUpdateRules($request)
                     : $field->getCreationRules($request);
-            return $rules;
-
-            // TODO: rethink how to solve the relatable rule
-            // $rules = array_filter($rules[$field->attribute], function ($rule) {
-            //     return ! $rule instanceof Relatable;
-            // });
-            // return [$field->attribute => $rules];
         })->all();
 
         // validate values
@@ -180,6 +180,7 @@ class HasOneInjectField extends Field implements RelatableField
 
         return array_merge(parent::jsonSerialize(), [
             'data' => $this->data,
+            'attribute_key' => $this->attributeKey,
         ]);
     }
 
