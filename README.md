@@ -1,4 +1,4 @@
-# HasOne Inect
+# HasOne Inject
 
 This package inherits the main features of HasOne field and allows it to be injected in the form between other fields.
 
