@@ -1,5 +1,8 @@
 # Nova HasOne Inject
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/aqjw/nova-has-one-inject-field.svg?style=flat-square)](https://packagist.org/packages/aqjw/nova-has-one-inject-field)
+[![Total Downloads](https://img.shields.io/packagist/dt/aqjw/nova-has-one-inject-field.svg?style=flat-square)](https://packagist.org/packages/aqjw/nova-has-one-inject-field)
+
 This package inherits the main features of HasOne field and allows it to be injected in the form between other fields.
 
 ## Requirements
